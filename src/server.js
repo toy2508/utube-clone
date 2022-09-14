@@ -1,18 +1,20 @@
 import express from "express";
+import morgan from "morgan";
+import globalRouter from "./routers/globalRouter";
+import userRouter from "./routers/userRouter";
+import videoRouter from "./routers/videoRouter";
+
 const app = express();
+const logger = morgan("dev");
 
-const PORT = 4000;
+app.set("view engine", "pug");
+app.set("views", process.cwd() + "/src/views");
+app.use(logger);
+app.use(express.urlencoded({ extended: true })); //post 방식의 body를 사용하기 위함
 
-app.get("/", (req, res, next) => {
-  console.log("hi");
-  next();
-});
+//Root Router 등록
+app.use("/", globalRouter);
+app.use("/user", userRouter);
+app.use("/video", videoRouter);
 
-app.get("/", (req, res) => {
-  return res.send("Hi Seokho");
-});
-
-const handlerListening = () =>
-  console.log(`Server is running at http://localhost:${PORT}`);
-
-app.listen(PORT, handlerListening);
+export default app;
