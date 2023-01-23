@@ -158,3 +158,42 @@
 2. mongoose 연결이 끝나면 model(테이블) 파일을 하나 만들고
    파일안에 schema(객체로 표현) 변수를 만들어 moongose의 model가 연결한다. ex) const Video = mongoose.model("Video", videoSchema);
    model 파일을 만들면 이것도 역시 server.js에 export를 해줘야 해당 모델을 사용이 가능하다.
+
+# 2022/10/02
+
+1. mongoose는 schema 생성시 SchemaType Option을 통해 문자길이제한, 공백제거, 대/소문자등
+   을 설정하면 DB에 데이터가 저장될때 데이터를 자동으로 수정하거나 validation 체크를한다.
+   site : https://mongoosejs.com/docs/schematypes.html
+   예시 :
+
+   ```JS
+
+   const videoSchema = new mongoose.Schema({
+      title: { type: String, required: true, trim: true },
+      description: { type: String, required: true, trim: true },
+      createdAt: { type: Date, required: true, default: Date.now },
+   });
+
+   ```
+
+# 2022/10/03
+
+1. MongoDB는 16진수를 ID로 생성 : 정규식을통해 사이트주소에서 id 찾아야함 /[0-9a-f]{24}/g
+
+# 2022/11/18 -- 다시 시작
+
+1. node.bcrypt.js : password에 대한 hashing 처리
+   - 암호처리 방법 : 유저가 암호를 입력해서 서버에 입려된 암호 정보를 보내면
+     서버에서 암호를 해싱해서 DB에 저장된 해싱 암호와 비교해서 똑같은면 암호가 맞다고 인식
+
+# 2022/11/19
+
+1. express-session : Express에서 세션을 사용하기 위한 프로그램
+2. res.locals의 값은 pug 파일과 공유할 수 있다. 그래서 pug 파일 전체에 필요한 기본정보(로그인, 유저정보)
+   등은 res.locals에 보관하면 전체 pug 파일에서 확인할 수 있다.
+3. connect-mongodb : session을 mongoDB 저장하기위한 connector(backend 서버가 reset될때마다 session정보가 리셋되기때문에
+   별도 DBMS에 저장해야한다.)=
+4. github 로그인 정보 얻기 :
+   - 참조 사이트 : https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps
+5. URLSearchParams : 객체를 URL 파라미터로 자동 변경
+6. node-fetch : backend에서 fecth를 사용하기위한 프로그램
