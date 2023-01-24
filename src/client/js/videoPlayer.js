@@ -58,8 +58,11 @@ const formatTime = (seconds) => {
 };
 
 const handleLoadedmetadata = () => {
+  console.log(video.duration);
   totalTime.innerText = formatTime(Math.floor(video.duration));
   timeline.max = Math.floor(video.duration);
+  if (!video.duration) {
+  }
 };
 
 const handleTimeUpdate = () => {
@@ -120,7 +123,7 @@ const handlePause = () => {
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange); //input은 움직일때마다 이벤트 발생, change는 마우스를 뗄때 발생
-video.addEventListener("loadeddata", handleLoadedmetadata); //video에 대한 meta 데이터가 load될때
+video.addEventListener("loadedmetadata", handleLoadedmetadata); //video에 대한 meta 데이터가 load될때
 video.addEventListener("timeupdate", handleTimeUpdate);
 video.addEventListener("ended", handleEnded);
 video.addEventListener("pause", handlePause);

@@ -191,7 +191,7 @@ export const postEdit = async (req, res) => {
   const updateUser = await User.findByIdAndUpdate(
     _id,
     {
-      avatarUrl: file ? file.path : avatarUrl,
+      avatarUrl: file ? file.location : avatarUrl,
       name,
       email,
       username,
@@ -211,8 +211,8 @@ export const postEdit = async (req, res) => {
 export const edit = (req, res) => res.send("Edit User");
 export const remove = (req, res) => res.send("Remove User");
 export const logout = (req, res) => {
-  req.session.destroy();
   req.flash("info", "Bye Bye");
+  req.session.destroy();
   return res.redirect("/");
 };
 

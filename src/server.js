@@ -41,8 +41,8 @@ app.use(
 //   });
 // });
 
-app.use(flash());
 app.use(localsMiddleware);
+app.use(flash());
 
 //Root Router 등록
 app.use("/uploads", express.static("uploads"));
